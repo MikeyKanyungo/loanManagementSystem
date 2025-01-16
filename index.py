@@ -292,8 +292,7 @@ class LoanSystem:
                 confirmation_application = input("\nConfirm Loan application? (Yes/No): ")
                 if confirmation_application.lower() == "yes":
                     print("Loan application confirmed. You will receive an email with further instructions.")
-                else:
-                    print("Loan application cancelled.")
+                elif confirmation_application.lower() == "no":
                     print("Loan application confirmed. You will receive an email with further instructions.")
                 else:
                     print("Loan application cancelled.")
