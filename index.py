@@ -1,16 +1,39 @@
 import sys
 
 class LoanSystem:
-    def _init_(self):
+    """
+    A class that represents a Loan Management System.
+
+    Attributes:
+    - user_type: The type of user (customer/admin/agent)
+    - customer_id: The ID of the customer
+    - admin_id: The ID of the admin
+    - agent_id: The ID of the agent
+
+    Methods:
+    - register(): Registers a user in the system
+    - login(): Logs in a user
+    - customer_flow(): Handles the flow of actions for the customer in the loan management system
+    """
+
+    def __init__(self):
         self.user_type = None
         self.customer_id = None
         self.admin_id = None
         self.agent_id = None
 
     def register(self):
+        """
+        Registers a user in the loan management system.
+
+        The user is prompted to enter their user type (customer/admin/agent) and their corresponding ID.
+
+        Returns:
+        None
+        """
         print("Registering user...")
         # Registration logic here
-        self.user_type = input("Enter user type (customer/admin/agent): ").lower() #change this to make the system automaticall detect user type
+        self.user_type = input("Enter user type (customer/admin/agent): ").lower() #change this to make the system automatically detect user type
         
         if self.user_type == "customer":
             self.customer_id = input("Enter customer ID: ")
@@ -23,6 +46,14 @@ class LoanSystem:
             sys.exit()
 
     def login(self):
+        """
+        Logs in a user in the loan management system.
+
+        The user is prompted to enter their user type (customer/admin/agent) and their corresponding ID.
+
+        Returns:
+        None
+        """
         print("Logging in...")
         # Login logic here
         if self.user_type == "customer":
@@ -222,6 +253,10 @@ class LoanSystem:
                 # print(f"Loan agreement accepted. Agreement ID: {agreement_id}")
 
                 print("Loan agreement accepted.")
+                # agreement_id = save_agreement_to_database(agreement_data)
+                # print(f"Loan agreement accepted. Agreement ID: {agreement_id}")
+
+                print("Loan agreement accepted.")
                 
             elif action == "reapply":
                 print("Reapplying for loan...")
@@ -293,6 +328,14 @@ class LoanSystem:
                 break
 
     def admin_flow(self):
+        """
+        Performs the administrative flow of the loan management system.
+        This method allows the user to choose different actions such as setting loan types,
+        receiving payments, and initiating loan recovery.
+
+        Returns:
+            None
+        """
         while True:
             action = input("Choose action (setloan/receive/loanrecovery): ").lower()
             
@@ -344,18 +387,58 @@ class LoanSystem:
                 print("Invalid action. Exiting admin flow.")
                 break
 
-
     def agent_flow(self):
         while True:
             action = input("Choose action (createloan/getreport): ").lower()
+
             if action == "createloan":
                 print("Creating loan account...")
                 # Create loan account logic
+                account_id = input("Enter Account ID: ")
+                customer_name = input("Enter Customer Name: ")
+                loan_amount = float(input("Enter Loan Amount: "))
+                interest_rate = float(input("Enter Interest Rate (as a percentage): "))
+                duration = int(input("Enter Loan Duration (in months): "))
+
+                # Mock data for storing loan accounts
+                loan_accounts = {
+                    # Example format: "001": {"name": "John Doe", "amount": 1000, "interest_rate": 10, "duration": 12}
+                }
+
+                if account_id not in loan_accounts:
+                    loan_accounts[account_id] = {
+                        "name": customer_name,
+                        "amount": loan_amount,
+                        "interest_rate": interest_rate,
+                        "duration": duration
+                    }
+                    print(f"Loan account for {customer_name} created successfully!")
+                else:
+                    print("Account ID already exists. Loan creation failed.")
+
             elif action == "getreport":
                 print("Getting report...")
-                # Get report logic
+                # Generate report logic
+                # Mock data for loan accounts
+                loan_accounts = {
+                    "001": {"name": "John Doe", "amount": 1000, "interest_rate": 10, "duration": 12},
+                    "002": {"name": "Jane Smith", "amount": 2000, "interest_rate": 8, "duration": 24},
+                }
+
+                if not loan_accounts:
+                    print("No loan accounts found.")
+                else:
+                    print("Loan Accounts Report:")
+                    for account_id, details in loan_accounts.items():
+                        print(f"Account ID: {account_id}")
+                        print(f"Customer Name: {details['name']}")
+                        print(f"Loan Amount: {details['amount']}")
+                        print(f"Interest Rate: {details['interest_rate']}%")
+                        print(f"Duration: {details['duration']} months")
+                        print("-" * 30)
+
             else:
-                print("Invalid action")
+                print("Invalid action. Exiting agent flow.")
                 break
 
     def run(self):
