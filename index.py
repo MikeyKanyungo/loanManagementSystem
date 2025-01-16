@@ -10,7 +10,7 @@ class LoanSystem:
     def register(self):
         print("Registering user...")
         # Registration logic here
-        self.user_type = input("Enter user type (customer/admin/agent): ").lower()
+        self.user_type = input("Enter user type (customer/admin/agent): ").lower() #change this to make the system automaticall detect user type
         if self.user_type == "customer":
             self.customer_id = input("Enter customer ID: ")
         elif self.user_type == "admin":
